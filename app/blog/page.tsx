@@ -56,6 +56,7 @@ export default async function BlogPage() {
                           fill
                           sizes="(max-width: 768px) 100vw, 40vw"
                           quality={75}
+                          unoptimized
                           className="object-cover group-hover:scale-105 transition-transform duration-500"
                         />
                       ) : (

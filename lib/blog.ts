@@ -1,4 +1,4 @@
-import { supabaseServer } from './supabase'
+import { supabaseServer } from '@/lib/supabase-server'
 import { blogPosts as fallbackPosts } from '@/data/blog'
 import type { BlogPost } from '@/data/blog'
 

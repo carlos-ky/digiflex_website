@@ -1,4 +1,4 @@
-import { supabaseServer } from '@/lib/supabase'
+import { supabaseServer } from '@/lib/supabase-server'
 import { MarkAsReadButton } from './MarkAsReadButton'
 
 async function getMessages() {

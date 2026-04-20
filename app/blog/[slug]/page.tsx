@@ -1,4 +1,4 @@
-import { supabaseServer } from '@/lib/supabase'
+import { supabaseServer } from '@/lib/supabase-server'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -108,6 +108,7 @@ export default async function BlogDetailPage({
                 fill
                 sizes="100vw"
                 quality={85}
+                unoptimized
                 className="object-cover"
                 priority
               />

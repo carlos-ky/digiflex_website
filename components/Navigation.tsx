@@ -43,9 +43,9 @@ export default function Navigation() {
             alt="Digiflex"
             width={140}
             height={28}
-            className="h-7 w-auto"
             priority
           />
+
         </Link>
 
         <div className="hidden md:flex items-center gap-8">

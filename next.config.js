@@ -4,7 +4,9 @@ const nextConfig = {
     remotePatterns: [
       { protocol: 'https', hostname: '**' },
     ],
+    minimumCacheTTL: 60,
   },
-};
+  serverExternalPackages: ['@supabase/ssr'],
+}
 
-module.exports = nextConfig;
+module.exports = nextConfig

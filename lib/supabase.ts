@@ -1,16 +1,19 @@
-import { createClient } from '@supabase/supabase-js'
 import { createBrowserClient } from '@supabase/ssr'
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 
-// Client browser (pour les composants 'use client')
-export const supabase = createBrowserClient(supabaseUrl, supabaseAnonKey)
+let browserClient: ReturnType<typeof createBrowserClient> | null = null
 
-// Client direct (pour les Server Components — sans cookies)
-export const supabaseServer = createClient(supabaseUrl, supabaseAnonKey)
+export function getSupabase() {
+  if (!browserClient) {
+    browserClient = createBrowserClient(supabaseUrl, supabaseAnonKey)
+  }
+  return browserClient
+}
 
-// Types
+export const supabase = getSupabase()
+
 export type PortfolioProject = {
   id: string
   client_name: string

@@ -5,6 +5,7 @@ import { getProjects } from '@/lib/portfolio';
 import Image from 'next/image';
 import Link from 'next/link';
 
+
 export const metadata: Metadata = {
   title: 'Portfolio — Digiflex',
   description:
@@ -73,6 +74,7 @@ export default async function PortfolioPage() {
                         fill
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         quality={75}
+                        unoptimized
                         className="object-cover transition-transform duration-700 group-hover:scale-105"
                       />
                     )}

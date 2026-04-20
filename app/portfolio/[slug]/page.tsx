@@ -1,4 +1,4 @@
-import { supabaseServer } from '@/lib/supabase'
+import { supabaseServer } from '@/lib/supabase-server'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -107,6 +107,7 @@ function MediaItem({ url, alt }: { url: string; alt: string }) {
         fill
         sizes="(max-width: 768px) 100vw, 50vw"
         quality={80}
+        unoptimized
         className="object-cover"
       />
     </div>
@@ -189,6 +190,7 @@ export default async function PortfolioDetailPage({
                 fill
                 sizes="100vw"
                 quality={85}
+                unoptimized
                 className="object-cover"
                 priority
               />

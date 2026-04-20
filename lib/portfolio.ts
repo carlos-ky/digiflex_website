@@ -1,4 +1,4 @@
-import { supabaseServer } from './supabase'
+import { supabaseServer } from '@/lib/supabase-server'
 import { projects as fallbackProjects } from '@/data/portfolio'
 import type { PortfolioProject } from '@/data/portfolio'
 
