@@ -1,6 +1,7 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import Reveal from './Reveal';
-import { projects } from '@/data/portfolio';
+import { getFeaturedProjects } from '@/lib/portfolio';
 
 const gradients = [
   'linear-gradient(135deg, #1a1a2e, #16213e)',
@@ -11,7 +12,9 @@ const gradients = [
   'linear-gradient(135deg, #1f2d3d, #1a1a1a)',
 ];
 
-export default function PortfolioPreview() {
+export default async function PortfolioPreview() {
+  const projects = await getFeaturedProjects();
+
   return (
     <section className="py-24 px-[4%]" id="portfolio">
       <div className="max-w-7xl mx-auto">
@@ -44,8 +47,18 @@ export default function PortfolioPreview() {
                 className="group relative aspect-[4/3] overflow-hidden cursor-pointer"
                 style={{ background: gradients[i % gradients.length] }}
               >
-                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/50 transition-all duration-500" />
-                <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-400">
+                {project.coverImage && (
+                  <Image
+                    src={project.coverImage}
+                    alt={project.name}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    quality={75}
+                    className="object-cover"
+                  />
+                )}
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/50 transition-all duration-500 z-10" />
+                <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-400 z-20">
                   <div className="text-[0.65rem] tracking-[0.15em] uppercase text-gris-moyen mb-1">
                     {project.category}
                   </div>
@@ -53,7 +66,7 @@ export default function PortfolioPreview() {
                     {project.name}
                   </div>
                 </div>
-                <div className="absolute inset-0 flex items-center justify-center font-display text-lg italic text-white/30 group-hover:opacity-0 transition-opacity duration-300">
+                <div className="absolute inset-0 flex items-center justify-center font-display text-lg italic text-white/30 group-hover:opacity-0 transition-opacity duration-300 z-20">
                   {project.name}
                 </div>
               </div>

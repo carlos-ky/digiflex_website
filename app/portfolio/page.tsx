@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
 import Reveal from '@/components/Reveal';
-import { projects } from '@/data/portfolio';
 import CTABand from '@/components/CTABand';
+import { getProjects } from '@/lib/portfolio';
+import Image from 'next/image';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Portfolio — Digiflex',
@@ -18,7 +20,19 @@ const gradients = [
   'linear-gradient(135deg, #1f2d3d, #1a1a1a)',
 ];
 
-export default function PortfolioPage() {
+// Ratios variés pour l'effet masonry
+const ratios = [
+  'aspect-[4/5]',
+  'aspect-[4/3]',
+  'aspect-[3/4]',
+  'aspect-[4/3]',
+  'aspect-[4/5]',
+  'aspect-[4/3]',
+]
+
+export default async function PortfolioPage() {
+  const projects = await getProjects();
+
   return (
     <>
       <section className="pt-40 pb-24 px-[4%]">
@@ -43,38 +57,58 @@ export default function PortfolioPage() {
             </p>
           </Reveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Masonry grid */}
+          <div className="columns-1 md:columns-2 lg:columns-3 gap-4 space-y-4">
             {projects.map((project, i) => (
-              <Reveal key={project.id} delay={i * 0.1}>
-                <div
-                  className="group relative aspect-[16/10] overflow-hidden cursor-pointer"
-                  style={{ background: gradients[i % gradients.length] }}
-                >
-                  <div className="absolute inset-0 bg-black/10 group-hover:bg-black/50 transition-all duration-500" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-center translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-400">
-                      <div className="text-[0.65rem] tracking-[0.15em] uppercase text-gris-moyen mb-2">
-                        {project.category} · {project.sector}
+              <Reveal key={project.id} delay={i * 0.08}>
+                <Link href={`/portfolio/${project.slug}`} className="block break-inside-avoid mb-4">
+                  <div
+                    className={`group relative overflow-hidden ${ratios[i % ratios.length]}`}
+                    style={{ background: gradients[i % gradients.length] }}
+                  >
+                    {project.coverImage && (
+                      <Image
+                        src={project.coverImage}
+                        alt={project.name}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        quality={75}
+                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+                    )}
+
+                    {/* Overlay permanent léger */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent z-10" />
+
+                    {/* Infos toujours visibles en bas */}
+                    <div className="absolute bottom-0 left-0 right-0 p-5 z-20">
+                      <div className="text-[0.6rem] tracking-[0.2em] uppercase text-white/50 mb-1">
+                        {project.category}{project.sector ? ` · ${project.sector}` : ''}
                       </div>
-                      <div className="font-display text-2xl font-semibold text-blanc-casse mb-3">
+                      <div className="font-display text-lg font-semibold text-white leading-snug">
                         {project.name}
                       </div>
-                      <p className="text-sm text-gris-moyen max-w-sm mx-auto px-6">
-                        {project.excerpt}
-                      </p>
                     </div>
-                    <div className="absolute inset-0 flex items-center justify-center group-hover:opacity-0 transition-opacity duration-300">
+
+                    {/* Hover — excerpt */}
+                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-400 z-20 flex items-center justify-center p-6">
                       <div className="text-center">
-                        <div className="font-display text-2xl text-white/40 font-semibold">
+                        <div className="text-[0.6rem] tracking-[0.2em] uppercase text-white/50 mb-2">
+                          {project.category}
+                        </div>
+                        <div className="font-display text-xl font-semibold text-white mb-3">
                           {project.name}
                         </div>
-                        <div className="text-xs text-white/20 mt-1 tracking-wider uppercase">
-                          {project.category}
+                        <p className="text-xs text-white/70 leading-relaxed">
+                          {project.excerpt}
+                        </p>
+                        <div className="mt-4 text-xs tracking-widest uppercase text-white/50 border-b border-white/20 pb-0.5 inline-block">
+                          Voir le projet
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                </Link>
               </Reveal>
             ))}
           </div>

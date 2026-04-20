@@ -1,9 +1,8 @@
 import type { Metadata } from 'next';
 import { Cormorant_Garamond, DM_Sans } from 'next/font/google';
+import ConditionalLayout from '@/components/ConditionalLayout'
 import './globals.css';
-import Navigation from '@/components/Navigation';
-import Footer from '@/components/Footer';
-import WhatsAppFloat from '@/components/WhatsAppFloat';
+import { headers } from 'next/headers';
 
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
@@ -51,19 +50,22 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const headersList = await headers()
+  const pathname = headersList.get('x-invoke-path') || ''
+  const isAdmin = pathname.startsWith('/admin')
+
+  
   return (
     <html lang="fr" className={`${cormorant.variable} ${dmSans.variable}`}>
       <body>
-        <Navigation />
-        <main>{children}</main>
-        <Footer />
-        <WhatsAppFloat />
+        <ConditionalLayout>{children}</ConditionalLayout>
       </body>
     </html>
   );
+
 }
