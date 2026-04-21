@@ -38,13 +38,13 @@ export default function NewArticlePage() {
   })
 
   const set = (key: string, value: any) => setForm((f) => ({ ...f, [key]: value }))
-
+  
   useEffect(() => {
     supabase
       .from('blog_articles')
       .select('id, title')
       .eq('is_featured', true)
-      .then(({ data }) => setFeaturedArticles(data ?? []))
+      .then(({ data }: { data: any }) => setFeaturedArticles(data ?? []))
   }, [])
 
   const handleTitleChange = (title: string) => {
