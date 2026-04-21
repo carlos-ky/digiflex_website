@@ -3,6 +3,7 @@ import { Cormorant_Garamond, DM_Sans } from 'next/font/google';
 import ConditionalLayout from '@/components/ConditionalLayout'
 import './globals.css';
 import { headers } from 'next/headers';
+import GoogleAnalytics from '@/components/GoogleAnalytics'
 
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
@@ -64,11 +65,12 @@ export default async function RootLayout({
 
   
   return (
-    <html lang="fr" className={`${cormorant.variable} ${dmSans.variable}`} data-scroll-behavior="smooth">
-      <body>
-        <ConditionalLayout>{children}</ConditionalLayout>
-      </body>
-    </html>
-  );
+  <html lang="fr" className={`${cormorant.variable} ${dmSans.variable}`} data-scroll-behavior="smooth">
+    <body>
+      <GoogleAnalytics />
+      <ConditionalLayout>{children}</ConditionalLayout>
+    </body>
+  </html>
+  )
 
 }
