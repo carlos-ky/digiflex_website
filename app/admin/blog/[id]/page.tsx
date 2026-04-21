@@ -45,13 +45,12 @@ export default function EditArticlePage() {
   const set = (key: string, value: any) => setForm((f) => ({ ...f, [key]: value }))
 
   useEffect(() => {
-    // Charge l'article
     supabase
       .from('blog_articles')
       .select('*')
       .eq('id', id)
       .single()
-      .then(({ data }) => {
+      .then(({ data }: { data: any }) => {
         if (data) {
           setForm({
             title: data.title ?? '',
@@ -69,13 +68,12 @@ export default function EditArticlePage() {
         setFetching(false)
       })
 
-    // Charge les articles mis en avant (sauf celui-ci)
     supabase
       .from('blog_articles')
       .select('id, title')
       .eq('is_featured', true)
       .neq('id', id)
-      .then(({ data }) => setFeaturedArticles(data ?? []))
+      .then(({ data }: { data: any }) => setFeaturedArticles(data ?? []))
   }, [id])
 
   const handleFeaturedChange = (checked: boolean) => {
