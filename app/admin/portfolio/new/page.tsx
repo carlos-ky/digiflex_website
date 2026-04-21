@@ -5,7 +5,16 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 
-const CATEGORIES = ['Social Media', 'Shooting', 'Branding', 'Événementiel', 'Web']
+const CATEGORIES = [
+  'Social Media',
+  'Branding',
+  'Web',
+  'Campagnes',
+  'Photography & Videography',
+  'Graphic Design',
+  'Shooting',
+  'Événementiel',
+]
 const MAX_FEATURED = 6
 
 export default function NewProjectPage() {
