@@ -16,8 +16,8 @@ export default function CTABand() {
       </Reveal>
       <Reveal delay={0.1}>
         <p className="text-gris-moyen text-base mb-8 max-w-lg mx-auto">
-          Commençons par une conversation. Pas un devis — une vraie discussion
-          sur votre business.
+          Commençons par une conversation, une vraie discussion
+          sur votre entreprise.
         </p>
       </Reveal>
       <Reveal delay={0.2}>

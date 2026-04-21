@@ -10,12 +10,21 @@ export const metadata: Metadata = {
     'Digiflex est une agence de branding et communication premium fondée par Carlos KY à Ouagadougou.',
 };
 
+const stats = [
+  { number: '12+', label: 'Clients accompagnés' },
+  { number: '3', label: 'Ans d\'expérience' },
+  { number: '5', label: 'Expertises maîtrisées' },
+  { number: '100%', label: 'Sur mesure' },
+]
+
 export default function AboutPage() {
   return (
     <>
       <section className="pt-40 pb-24 px-[4%]">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+
+          {/* Hero */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start mb-24">
             <div>
               <Reveal>
                 <span className="text-xs tracking-[0.2em] uppercase text-gris-moyen mb-6 block">
@@ -50,7 +59,7 @@ export default function AboutPage() {
                 </p>
               </Reveal>
               <Reveal delay={0.4}>
-                <p className="text-lg leading-relaxed text-gris-graphite mb-8">
+                <p className="text-lg leading-relaxed text-gris-graphite">
                   Le premium Digiflex ne réside pas dans le prix — il réside dans
                   l&apos;expérience. De la première conversation WhatsApp à la livraison
                   finale, chaque interaction reflète un standard de professionnalisme
@@ -59,27 +68,115 @@ export default function AboutPage() {
               </Reveal>
             </div>
 
+            {/* Bloc fondateur */}
             <Reveal delay={0.2}>
-              <div className="sticky top-32">
-                <div className="aspect-[3/4] bg-gris-clair border border-gris-clair flex items-center justify-center text-gris-moyen italic text-sm mb-6">
-                  Photo de {siteConfig.founder.name}
+              <div className="sticky top-32 space-y-6">
+                {/* Citation */}
+                <div
+                  className="p-10 relative"
+                  style={{ backgroundColor: '#0E0E0E' }}
+                >
+                  <div
+                    className="font-display text-6xl font-light leading-none absolute top-6 left-8"
+                    style={{ color: '#2A2A2A' }}
+                  >
+                    "
+                  </div>
+                  <p
+                    className="font-display leading-relaxed pt-8"
+                    style={{ color: '#F8F6F0', fontSize: 'clamp(1.1rem, 2vw, 1.3rem)' }}
+                  >
+                    Le branding et la communication sont des outils de souveraineté
+                    culturelle et économique pour l&apos;Afrique.
+                  </p>
+                  <div className="mt-6 pt-6" style={{ borderTop: '1px solid #2A2A2A' }}>
+                    <p
+                      className="text-xs tracking-widest uppercase mb-1"
+                      style={{ color: '#F8F6F0', fontFamily: 'DM Sans, sans-serif' }}
+                    >
+                      {siteConfig.founder.name}
+                    </p>
+                    <p
+                      className="text-xs"
+                      style={{ color: '#4A4A4A', fontFamily: 'DM Sans, sans-serif' }}
+                    >
+                      {siteConfig.founder.role} — Digiflex
+                    </p>
+                  </div>
                 </div>
-                <h3 className="font-display text-2xl font-semibold mb-1">
-                  {siteConfig.founder.name}
-                </h3>
-                <p className="text-sm text-gris-moyen mb-2">
-                  {siteConfig.founder.role}
-                </p>
-                <p className="text-sm text-gris-graphite leading-relaxed">
-                  {siteConfig.founder.title}. Convaincu que le branding et la
-                  communication sont des outils de souveraineté culturelle et
-                  économique pour l&apos;Afrique.
-                </p>
+
+                {/* Infos fondateur */}
+                <div
+                  className="p-8"
+                  style={{ border: '1px solid #E8E8E8' }}
+                >
+                  <p
+                    className="text-xs tracking-[0.2em] uppercase mb-4"
+                    style={{ color: '#9A9A9A', fontFamily: 'DM Sans, sans-serif' }}
+                  >
+                    Le fondateur
+                  </p>
+                  <h3 className="font-display text-2xl font-semibold mb-2">
+                    {siteConfig.founder.name}
+                  </h3>
+                  <p
+                    className="text-sm text-gris-moyen mb-4"
+                    style={{ fontFamily: 'DM Sans, sans-serif' }}
+                  >
+                    {siteConfig.founder.role}
+                  </p>
+                  <p
+                    className="text-sm leading-relaxed text-gris-graphite"
+                    style={{ fontFamily: 'DM Sans, sans-serif' }}
+                  >
+                    {siteConfig.founder.title}. Convaincu que le branding et la
+                    communication sont des instruments de croissance pour les
+                    entrepreneurs africains qui veulent s&apos;imposer.
+                  </p>
+                </div>
               </div>
             </Reveal>
           </div>
 
-          <div className="mt-24">
+          {/* Chiffres clés */}
+          <Reveal>
+            <div className="mb-24">
+              <h2
+                className="font-display mb-12"
+                style={{ fontSize: 'clamp(1.8rem, 3vw, 2.8rem)' }}
+              >
+                En chiffres
+              </h2>
+              <div
+                className="grid grid-cols-2 lg:grid-cols-4"
+                style={{ borderTop: '1px solid #E8E8E8', borderLeft: '1px solid #E8E8E8' }}
+              >
+                {stats.map((stat, i) => (
+                  <div
+                    key={i}
+                    className="p-8 text-center"
+                    style={{ borderRight: '1px solid #E8E8E8', borderBottom: '1px solid #E8E8E8' }}
+                  >
+                    <p
+                      className="font-display font-light mb-2"
+                      style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', color: '#0E0E0E', lineHeight: 1 }}
+                    >
+                      {stat.number}
+                    </p>
+                    <p
+                      className="text-xs tracking-widest uppercase"
+                      style={{ color: '#9A9A9A', fontFamily: 'DM Sans, sans-serif' }}
+                    >
+                      {stat.label}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Reveal>
+
+          {/* Valeurs */}
+          <div>
             <Reveal>
               <h2
                 className="font-display mb-12"
@@ -96,7 +193,7 @@ export default function AboutPage() {
                 },
                 {
                   title: 'Exécution obsessionnelle',
-                  text: 'Le premium se ressent, il ne s\'annonce pas. Chaque livrable — un post, un Brand Book, un site — reflète un standard d\'excellence que le client voit et ressent.',
+                  text: 'Le premium se ressent, il ne s\'annonce pas. Chaque livrable reflète un standard d\'excellence que le client voit et ressent immédiatement.',
                 },
                 {
                   title: 'Sur mesure, toujours',
@@ -116,6 +213,7 @@ export default function AboutPage() {
               ))}
             </div>
           </div>
+
         </div>
       </section>
       <Trust />

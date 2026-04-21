@@ -28,9 +28,8 @@ export default async function Services() {
         </Reveal>
         <Reveal delay={0.2}>
           <p className="text-lg leading-relaxed text-gris-graphite max-w-2xl mb-12">
-            Nous ne vendons pas des packs. Nous commençons par comprendre votre
-            business, puis nous construisons une solution sur mesure. Stratégie
-            d&apos;abord, exécution ensuite.
+            Nous commençons par comprendre votre entreprise, les problèmes que vous rencontrez, puis nous construisons une solution sur mesure. 
+            Stratégie d&apos;abord, exécution ensuite.
           </p>
         </Reveal>
 
@@ -71,7 +70,7 @@ export default async function Services() {
               href="/services"
               className="inline-block px-10 py-3.5 border border-noir text-noir font-bold text-sm tracking-wider uppercase hover:bg-noir hover:text-blanc-casse transition-all"
             >
-              Voir tous nos services
+              Voir toutes nos offres
             </Link>
           </div>
         </Reveal>

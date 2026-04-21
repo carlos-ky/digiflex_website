@@ -10,10 +10,10 @@ export const siteConfig = {
   email: 'contact@digiflex-burkina.com',
   location: 'Ouagadougou, Burkina Faso',
   social: {
-    facebook: 'https://facebook.com/digiflex',
+    facebook: 'https://facebook.com/digiflex.burkina',
     instagram: 'https://instagram.com/digiflex_bf',
-    tiktok: 'https://tiktok.com/@digiflex',
-    linkedin: 'https://linkedin.com/company/digiflex',
+    tiktok: 'https://tiktok.com/@digiflex_bf',
+    linkedin: 'https://linkedin.com/company/digiflex-burkina',
   },
   founder: {
     name: 'Carlos KY',

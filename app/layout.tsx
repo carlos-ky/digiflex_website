@@ -52,6 +52,10 @@ export const metadata: Metadata = {
   verification: {
     google: 'R_u5vtujVLFwpZ53HOGJmQEnvNH73TUQ2wx1hAmEa5o', // remplace par ton code
   },
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/icon.png',
+  },
 };
 
 export default async function RootLayout({

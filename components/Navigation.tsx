@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 
 const navLinks = [
@@ -12,9 +13,15 @@ const navLinks = [
   { href: '/about', label: 'À propos' },
 ];
 
+// Pages avec hero sombre (fond noir en haut) — logo blanc dès le départ
+const darkHeroPages = ['/', '/portfolio', '/blog'];
+
 export default function Navigation() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
+
+  const hasDarkHero = darkHeroPages.includes(pathname);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -25,10 +32,16 @@ export default function Navigation() {
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? 'hidden' : '';
-    return () => {
-      document.body.style.overflow = '';
-    };
+    return () => { document.body.style.overflow = ''; };
   }, [mobileOpen]);
+
+  // Logique couleurs
+  const isLight = !scrolled && !hasDarkHero
+  const logo = isLight ? '/logo-black.png' : '/logo-white.png'
+  const textColor = isLight ? 'text-noir' : 'text-white'
+  const borderColor = isLight ? 'border-noir' : 'border-white'
+  const bgHover = isLight ? 'hover:bg-noir hover:text-blanc-casse' : 'hover:bg-white hover:text-noir'
+  const menuColor = isLight ? '#0E0E0E' : '#FFFFFF'
 
   return (
     <>
@@ -39,13 +52,13 @@ export default function Navigation() {
       >
         <Link href="/" className="flex items-center">
           <Image
-            src="/logo-white.png"
+            src={logo}
             alt="Digiflex"
             width={140}
             height={28}
+            style={{ width: 'auto', height: '28px' }}
             priority
           />
-
         </Link>
 
         <div className="hidden md:flex items-center gap-8">
@@ -53,15 +66,15 @@ export default function Navigation() {
             <Link
               key={link.href}
               href={link.href}
-              className="text-white text-sm uppercase tracking-wider font-medium relative group"
+              className={`${textColor} text-sm uppercase tracking-wider font-medium relative group transition-colors duration-300`}
             >
               {link.label}
-              <span className="absolute -bottom-1 left-0 w-0 h-px bg-white transition-all duration-300 group-hover:w-full" />
+              <span className={`absolute -bottom-1 left-0 w-0 h-px ${isLight ? 'bg-noir' : 'bg-white'} transition-all duration-300 group-hover:w-full`} />
             </Link>
           ))}
           <Link
             href="/contact"
-            className="bg-white text-noir px-6 py-2.5 text-xs font-bold uppercase tracking-wider hover:bg-gris-clair transition-colors"
+            className={`${textColor} px-6 py-2.5 text-xs font-bold uppercase tracking-wider border ${borderColor} ${bgHover} transition-colors duration-300`}
           >
             Nous contacter
           </Link>
@@ -69,7 +82,8 @@ export default function Navigation() {
 
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden text-white z-50"
+          className="md:hidden z-50 transition-colors duration-300"
+          style={{ color: menuColor }}
           aria-label="Menu"
         >
           {mobileOpen ? <X size={24} /> : <Menu size={24} />}

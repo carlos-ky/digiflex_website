@@ -28,7 +28,7 @@ export default async function BlogPreview() {
         </Reveal>
         <Reveal delay={0.2}>
           <p className="text-lg leading-relaxed text-gris-moyen max-w-2xl mb-12">
-            Reflexions strategiques, conseils pratiques, et analyses du marche
+            Reflexions strategiques, conseils pratiques, et analyses du marché
             digital en Afrique de l&apos;Ouest.
           </p>
         </Reveal>

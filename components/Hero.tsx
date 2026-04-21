@@ -38,7 +38,7 @@ export default function Hero() {
           transition={{ duration: 1, delay: 0.6, ease: 'easeOut' }}
           className="text-gris-moyen text-base tracking-widest uppercase mb-14"
         >
-          Agence de Branding, Marketing &amp; Communication
+          Agence de Branding, Marketing Digital &amp; Communication
         </motion.p>
 
         <motion.div
