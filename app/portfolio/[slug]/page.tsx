@@ -5,6 +5,8 @@ import Link from 'next/link'
 import CTABand from '@/components/CTABand'
 import { projects as fallbackProjects } from '@/data/portfolio'
 import GalleryLightbox from '@/components/GalleryLightbox'
+import type { Metadata } from 'next'
+
 
 async function getProject(slug: string) {
   const { data } = await supabaseServer
@@ -112,6 +114,44 @@ function MediaItem({ url, alt }: { url: string; alt: string }) {
       />
     </div>
   )
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+  const { slug } = await params
+  const result = await getProject(slug)
+
+  if (!result) {
+    return {
+      title: 'Projet introuvable — Digiflex',
+    }
+  }
+
+  const isDB = result.source === 'db'
+  const p = result.data as any
+  const name = isDB ? p.client_name : p.name
+  const description = isDB ? p.short_description : p.excerpt
+  const image = isDB ? p.cover_image : p.coverImage
+
+  return {
+    title: `${name} — Portfolio Digiflex`,
+    description: description ?? `Découvrez le projet ${name} réalisé par Digiflex.`,
+    openGraph: {
+      title: `${name} — Portfolio Digiflex`,
+      description: description ?? '',
+      images: image ? [{ url: image }] : [],
+      type: 'article',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${name} — Portfolio Digiflex`,
+      description: description ?? '',
+      images: image ? [image] : [],
+    },
+  }
 }
 
 export default async function PortfolioDetailPage({

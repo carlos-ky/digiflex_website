@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import CTABand from '@/components/CTABand'
 import { blogPosts as fallbackPosts } from '@/data/blog'
+import type { Metadata } from 'next'
 
 async function getArticle(slug: string) {
   const { data } = await supabaseServer
@@ -19,6 +20,46 @@ async function getArticle(slug: string) {
   if (post) return { source: 'static', data: post }
 
   return null
+}
+
+
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+  const { slug } = await params
+  const result = await getArticle(slug)
+
+  if (!result) {
+    return {
+      title: 'Article introuvable — Digiflex',
+    }
+  }
+
+  const isDB = result.source === 'db'
+  const p = result.data as any
+  const title = p.title
+  const description = isDB ? p.excerpt : p.excerpt
+  const image = isDB ? p.cover_image : p.coverImage
+
+  return {
+    title: `${title} — Blog Digiflex`,
+    description: description ?? `Article de blog par Digiflex.`,
+    openGraph: {
+      title: `${title} — Blog Digiflex`,
+      description: description ?? '',
+      images: image ? [{ url: image }] : [],
+      type: 'article',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${title} — Blog Digiflex`,
+      description: description ?? '',
+      images: image ? [image] : [],
+    },
+  }
 }
 
 export default async function BlogDetailPage({
