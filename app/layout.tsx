@@ -48,6 +48,9 @@ export const metadata: Metadata = {
     description:
       'Agence de branding et communication premium à Ouagadougou.',
   },
+  verification: {
+    google: '<meta name="google-site-verification" content="R_u5vtujVLFwpZ53HOGJmQEnvNH73TUQ2wx1hAmEa5o" />', // remplace par ton code
+  },
 };
 
 export default async function RootLayout({
