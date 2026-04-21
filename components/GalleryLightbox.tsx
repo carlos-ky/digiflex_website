@@ -52,6 +52,7 @@ function MediaThumb({
               src={`https://img.youtube.com/vi/${ytId}/hqdefault.jpg`}
               alt={alt}
               fill
+              unoptimized
               className="object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-300"
               sizes="(max-width: 768px) 100vw, 33vw"
               quality={70}
@@ -77,6 +78,7 @@ function MediaThumb({
             alt={alt}
             width={800}
             height={600}
+            unoptimized
             className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500"
             sizes="(max-width: 768px) 100vw, 33vw"
             quality={75}
@@ -203,6 +205,7 @@ function LightboxModal({
               alt={alt}
               width={1200}
               height={800}
+              unoptimized
               className="w-full h-auto max-h-[85vh] object-contain"
               quality={90}
             />

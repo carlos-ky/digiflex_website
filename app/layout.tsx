@@ -61,7 +61,7 @@ export default async function RootLayout({
 
   
   return (
-    <html lang="fr" className={`${cormorant.variable} ${dmSans.variable}`}>
+    <html lang="fr" className={`${cormorant.variable} ${dmSans.variable}`} data-scroll-behavior="smooth">
       <body>
         <ConditionalLayout>{children}</ConditionalLayout>
       </body>

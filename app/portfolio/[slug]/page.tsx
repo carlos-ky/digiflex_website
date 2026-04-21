@@ -117,11 +117,12 @@ function MediaItem({ url, alt }: { url: string; alt: string }) {
 export default async function PortfolioDetailPage({
   params,
 }: {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }) {
-  const result = await getProject(params.slug)
+  const { slug } = await params
+  const result = await getProject(slug)
   if (!result) notFound()
-
+    
   const isDB = result.source === 'db'
   const p = result.data as any
 

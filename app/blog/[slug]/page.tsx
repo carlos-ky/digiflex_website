@@ -24,11 +24,12 @@ async function getArticle(slug: string) {
 export default async function BlogDetailPage({
   params,
 }: {
-  params: { slug: string }
+  params: Promise<{ slug: string }>
 }) {
-  const result = await getArticle(params.slug)
+  const { slug } = await params
+  const result = await getArticle(slug)
   if (!result) notFound()
-
+    
   const isDB = result.source === 'db'
   const p = result.data as any
 

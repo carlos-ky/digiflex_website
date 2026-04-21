@@ -43,34 +43,36 @@ export default async function PortfolioPreview() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
           {projects.map((project, i) => (
             <Reveal key={project.id} delay={i * 0.1}>
-              <div
-                className="group relative aspect-[4/3] overflow-hidden cursor-pointer"
-                style={{ background: gradients[i % gradients.length] }}
-              >
-                {project.coverImage && (
-                  <Image
-                    src={project.coverImage}
-                    alt={project.name}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    quality={75}
-                    unoptimized
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                )}
-                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/50 transition-all duration-500 z-10" />
-                <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-400 z-20">
-                  <div className="text-[0.65rem] tracking-[0.15em] uppercase text-gris-moyen mb-1">
-                    {project.category}
+              <Link href={`/portfolio/${project.slug}`} className="block">
+                <div
+                  className="group relative aspect-[4/3] overflow-hidden cursor-pointer"
+                  style={{ background: gradients[i % gradients.length] }}
+                >
+                  {project.coverImage && (
+                    <Image
+                      src={project.coverImage}
+                      alt={project.name}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      quality={75}
+                      unoptimized
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  )}
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/50 transition-all duration-500 z-10" />
+                  <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-400 z-20">
+                    <div className="text-[0.65rem] tracking-[0.15em] uppercase text-gris-moyen mb-1">
+                      {project.category}
+                    </div>
+                    <div className="font-display text-xl font-semibold text-blanc-casse">
+                      {project.name}
+                    </div>
                   </div>
-                  <div className="font-display text-xl font-semibold text-blanc-casse">
+                  <div className="absolute inset-0 flex items-center justify-center font-display text-lg italic text-white/30 group-hover:opacity-0 transition-opacity duration-300 z-20">
                     {project.name}
                   </div>
                 </div>
-                <div className="absolute inset-0 flex items-center justify-center font-display text-lg italic text-white/30 group-hover:opacity-0 transition-opacity duration-300 z-20">
-                  {project.name}
-                </div>
-              </div>
+              </Link>
             </Reveal>
           ))}
         </div>

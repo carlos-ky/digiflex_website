@@ -4,7 +4,7 @@ const nextConfig = {
     remotePatterns: [
       { protocol: 'https', hostname: '**' },
     ],
-    minimumCacheTTL: 60,
+    qualities: [75, 80, 85, 90],
   },
   serverExternalPackages: ['@supabase/ssr'],
 }
