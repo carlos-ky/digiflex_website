@@ -1,27 +1,25 @@
 'use client'
 
 import { siteConfig } from '@/lib/config'
+import { supabase } from '@/lib/supabase'
 
 export default function WhatsAppFloat() {
-  const handleClick = () => {
-    // Tracker le clic WhatsApp
-    if (typeof window !== 'undefined') {
-      // Google Analytics si disponible
-      if ((window as any).gtag) {
-        (window as any).gtag('event', 'whatsapp_click', {
-          event_category: 'contact',
-          event_label: 'whatsapp_float',
-        })
-      }
-
-      // Stockage local pour stats internes
-      const clicks = JSON.parse(localStorage.getItem('wa_clicks') || '[]')
-      clicks.push({
-        date: new Date().toISOString(),
+  const handleClick = async () => {
+    try {
+      await supabase.from('whatsapp_clicks').insert({
         page: window.location.pathname,
         source: 'float_button',
       })
-      localStorage.setItem('wa_clicks', JSON.stringify(clicks))
+    } catch (e) {
+      // Silencieux — ne pas bloquer la redirection
+    }
+
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'whatsapp_click', {
+        event_category: 'contact',
+        event_label: 'float_button',
+        page: window.location.pathname,
+      })
     }
   }
 
