@@ -48,13 +48,12 @@ export default function EditProjectPage() {
     url.includes('tiktok.com')
 
   useEffect(() => {
-    // Charge le projet
     supabase
       .from('portfolio_projects')
       .select('*')
       .eq('id', id)
       .single()
-      .then(({ data }) => {
+      .then(({ data }: { data: any }) => {
         if (data) {
           const gallery: string[] = data.gallery_images ?? []
           const images = gallery.filter((u: string) => !isVideoUrl(u))
@@ -78,14 +77,13 @@ export default function EditProjectPage() {
         setFetching(false)
       })
 
-    // Charge les projets mis en avant (sauf celui-ci)
     supabase
       .from('portfolio_projects')
       .select('id, client_name, display_order')
       .eq('is_featured', true)
       .neq('id', id)
       .order('display_order', { ascending: true })
-      .then(({ data }) => setFeaturedProjects(data ?? []))
+      .then(({ data }: { data: any }) => setFeaturedProjects(data ?? []))
   }, [id])
 
   const handleFeaturedChange = (checked: boolean) => {

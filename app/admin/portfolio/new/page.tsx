@@ -41,7 +41,7 @@ export default function NewProjectPage() {
       .select('id, client_name, display_order')
       .eq('is_featured', true)
       .order('display_order', { ascending: true })
-      .then(({ data }) => setFeaturedProjects(data ?? []))
+      .then(({ data }: { data: any }) => setFeaturedProjects(data ?? []))
   }, [])
 
   const handleFeaturedChange = (checked: boolean) => {
