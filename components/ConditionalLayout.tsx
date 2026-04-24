@@ -5,16 +5,20 @@ import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 import WhatsAppFloat from '@/components/WhatsAppFloat'
 
+const LEGAL_PATHS = ['/privacy', '/terms', '/data-deletion']
+
 export default function ConditionalLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname()
   const isAdmin = pathname.startsWith('/admin')
+  const isLegal = LEGAL_PATHS.includes(pathname)
+  const hideMainChrome = isAdmin || isLegal
 
   return (
     <>
-      {!isAdmin && <Navigation />}
+      {!hideMainChrome && <Navigation />}
       <main>{children}</main>
-      {!isAdmin && <Footer />}
-      {!isAdmin && <WhatsAppFloat />}
+      {!hideMainChrome && <Footer />}
+      {!hideMainChrome && <WhatsAppFloat />}
     </>
   )
 }
